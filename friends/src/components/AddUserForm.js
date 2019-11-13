@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addUser } from "../actions";
 
-function Login(props) {
+function AddUserForm(props) {
     const [formValues, setFormValues] = useState({
         name: "",
         age: "",
@@ -48,4 +48,4 @@ function Login(props) {
         </form>
     )
 }
-export default connect(null, {})(Login)
+export default connect(null, { addUser })(AddUserForm)
