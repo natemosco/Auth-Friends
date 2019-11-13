@@ -1,6 +1,6 @@
+import { login } from "../actions";
 import React, { useState } from 'react';
 import { connect } from 'react-redux';;
-import { login } from "../actions";
 
 
 function Login(props) {
@@ -31,8 +31,8 @@ function Login(props) {
 
         <div>
             <form action="submit">
-                <label htmlFor="username">email:</label>
-                <input type="email" id="username" value={creds.username} placeholder="email is your username" onChange={handleChanges} />
+                <label htmlFor="username">username:</label>
+                <input type="text" id="username" value={creds.username} placeholder="username here" onChange={handleChanges} />
                 <label htmlFor="password">password:</label>
                 <input type="password" id="password" value={creds.password} placeholder="password here" onChange={handleChanges} />
                 <button onClick={onSubmit}>Login</button>

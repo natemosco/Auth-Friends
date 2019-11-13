@@ -1,4 +1,4 @@
-import React from React;
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 function ProtectedRoute(props) {
@@ -8,8 +8,8 @@ function ProtectedRoute(props) {
     } = props
     return (
         <Route {...rest} render={(...renderProps) => {
-            if (localStorage.getItem("token")) {
-                return <Componen {...renderProps} />
+            if (sessionStorage.getItem("token")) {
+                return <Component {...renderProps} />
             } else {
                 return <Redirect to="/login" />
             }

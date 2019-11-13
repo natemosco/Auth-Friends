@@ -11,8 +11,7 @@ const initialState = {
         email: "joe@lambdaschool.com"
     }],
     isFetching: false,
-    error: "",
-    loading: false
+    error: ""
 }
 
 function reducer(state = initialState, action) {
@@ -26,7 +25,7 @@ function reducer(state = initialState, action) {
         case AXIOS_SUCCESS:
             return {
                 ...state,
-                friends: [action.payload],
+                friends: action.payload,
                 error: "",
                 isFetching: false,
             }

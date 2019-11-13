@@ -1,5 +1,6 @@
-// import axios from "axios";
+import React from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { Redirect } from 'react-router-dom';
 
 
 export const AXIOS_START = "AXIOS_START";
@@ -22,14 +23,14 @@ export const axiosGet = (id) => dispatch => {
         })
 }
 
-export const login = (user) => dispatch => {
+export const login = (creds) => dispatch => {
     dispatch({ type: AXIOS_START });
     axiosWithAuth()
-        .post("http://localhost:5000/api/login", user)
+        .post("http://localhost:5000/api/login", creds)
         .then(response => {
             console.log(response, "login response");
-            dispatch({ type: AXIOS_SUCCESS, payload: response.data })
-            props.history.push("/")
+            sessionStorage.setItem("token", response.data.payload)
+            return <Redirect to="/" />
         })
         .catch(error => {
             console.log("error from login axios", error);
@@ -51,7 +52,7 @@ export const addUser = (user) => dispatch => {
         })
 }
 
-export const deleteUser = (user) => dispatch => {
+export const deleteUser = (id) => dispatch => {
     dispatch({ type: AXIOS_START });
     axiosWithAuth()
         .put(`http://localhost:5000/api/friends/:${id}`)
@@ -65,7 +66,7 @@ export const deleteUser = (user) => dispatch => {
         })
 }
 
-export const updateUser = (user) => dispatch => {
+export const updateUser = (id, user) => dispatch => {
     dispatch({ type: AXIOS_START });
     axiosWithAuth()
         .put(`http://localhost:5000/api/friends/:${id}`, user)

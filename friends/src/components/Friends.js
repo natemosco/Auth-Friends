@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from "react-redux";
+import { axiosGet } from "../actions";
+
+import AddUserForm from "./AddUserForm";
 
 function Friends(props) {
+
+    useEffect(() => {
+        props.axiosGet()
+    }, [])
+
     return (
         <div>
             <h2>Friends:</h2>
+            <AddUserForm></AddUserForm>
             {props.friends.map(friendObj => {
                 return (
 
@@ -14,7 +23,6 @@ function Friends(props) {
                         <p>{friendObj.age}</p>
                         <i>{friendObj.email}</i>
                     </div>
-
                 )
             })}
         </div>
@@ -25,4 +33,4 @@ const mapStateToProps = state => {
         friends: state.friends
     }
 };
-export default connect(mapStateToProps, {})(Friends);
+export default connect(mapStateToProps, { axiosGet })(Friends);
