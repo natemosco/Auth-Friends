@@ -11,7 +11,8 @@ const initialState = {
         email: "joe@lambdaschool.com"
     }],
     isFetching: false,
-    error: ""
+    error: "",
+    loading: false
 }
 
 function reducer(state = initialState, action) {
