@@ -1,17 +1,19 @@
 import React from 'react';
-import { Route, Link, Redirect } from "react-router-dom";
+import { Route, Link, withRouter } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/Home";
 import Friends from "./components/Friends.js";
 import Login from "./components/Login";
 import './App.css';
-import { login } from './actions';
 
-function App() {
+
+function App(props) {
+  console.log(props.history, "?????")
   const logoutFn = (e) => {
     e.preventDefault();
     sessionStorage.clear("token");
-    return <Redirect to="/login" />
+    props.history.push("/login");
+    return
   }
 
   return (
@@ -30,4 +32,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

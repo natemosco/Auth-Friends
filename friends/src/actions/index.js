@@ -1,7 +1,4 @@
-import React from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import { Redirect } from 'react-router-dom';
-
 
 export const AXIOS_START = "AXIOS_START";
 export const AXIOS_SUCCESS = "AXIOS_SUCCESS";
@@ -23,14 +20,15 @@ export const axiosGet = (id) => dispatch => {
         })
 }
 
-export const login = (creds) => dispatch => {
+export const login = (creds, props) => dispatch => {
     dispatch({ type: AXIOS_START });
     axiosWithAuth()
-        .post("http://localhost:5000/api/login", creds)
+        .post("/api/login", creds)
         .then(response => {
             console.log(response, "login response");
             sessionStorage.setItem("token", response.data.payload)
-            return <Redirect to="/" />
+            props.history.push("/");
+
         })
         .catch(error => {
             console.log("error from login axios", error);
@@ -41,7 +39,7 @@ export const login = (creds) => dispatch => {
 export const addUser = (user) => dispatch => {
     dispatch({ type: AXIOS_START });
     axiosWithAuth()
-        .post("http://localhost:5000/api/friends", user)
+        .post("/api/friends", user)
         .then(response => {
             console.log(response);
             dispatch({ type: AXIOS_SUCCESS, payload: response.data })
@@ -55,7 +53,7 @@ export const addUser = (user) => dispatch => {
 export const deleteUser = (id) => dispatch => {
     dispatch({ type: AXIOS_START });
     axiosWithAuth()
-        .put(`http://localhost:5000/api/friends/:${id}`)
+        .put(`/api/friends/:${id}`)
         .then(response => {
             console.log(response);
             dispatch({ type: AXIOS_SUCCESS, payload: response.data })
@@ -69,7 +67,7 @@ export const deleteUser = (id) => dispatch => {
 export const updateUser = (id, user) => dispatch => {
     dispatch({ type: AXIOS_START });
     axiosWithAuth()
-        .put(`http://localhost:5000/api/friends/:${id}`, user)
+        .put(`/api/friends/:${id}`, user)
         .then(response => {
             console.log(response);
             dispatch({ type: AXIOS_SUCCESS, payload: response.data })
